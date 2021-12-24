@@ -17,6 +17,16 @@
         <li>
             <x-side-bar-spacer></x-side-bar-spacer>
         </li>
+
+        <li>
+            <x-side-bar-title>Blog Manager</x-side-bar-title>
+        </li>
+        <li>
+            <x-side-bar-link name="Category Manager" link="{{ route('category.create') }}" class="fas fa-layer-group"></x-side-bar-link>
+        </li>
+        <li>
+            <x-side-bar-spacer></x-side-bar-spacer>
+        </li>
         <li>
             <x-side-bar-title>Manage Profile</x-side-bar-title>
         </li>

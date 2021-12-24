@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\Info;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -25,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -36,7 +38,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $request->validate([
+            "title" => "required|min:3|max:200|unique:categories,title"
+        ]);
+        $category = new Category();
+        $category->title = $request->title;
+        $category->user_id = Auth::id();
+        $category->save();
+        return redirect()->route('category.create')->with("toast",Info::showToast("success","New Category Added"));
     }
 
     /**
@@ -58,7 +67,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit',compact('category'));
     }
 
     /**
@@ -70,7 +79,14 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $request->validate([
+            "title" => "required|min:3|max:200|unique:categories,title,".$category->id
+        ]);
+
+        $category->title = $request->title;
+        $category->update();
+        return redirect()->route('category.create')->with("toast",Info::showToast("success","Category Updated"));
+
     }
 
     /**
