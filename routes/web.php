@@ -32,7 +32,7 @@ Route::middleware("auth")->group(function(){
     Route::resource("category",\App\Http\Controllers\CategoryController::class);
     Route::resource('article',\App\Http\Controllers\ArticleController::class);
     Route::resource('photo',\App\Http\Controllers\PhotoController::class);
-
+    Route::resource('product',\App\Http\Controllers\ProductController::class);
 
     Route::prefix("profile")->name("profile.")->group(function(){
         Route::view("/","profile.index")->name('index');
